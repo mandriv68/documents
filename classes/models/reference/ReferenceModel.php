@@ -16,13 +16,14 @@ class ReferenceModel extends AbstractModel {
                 $fields = rtrim($fld, ',');
                 $placeholders = rtrim($plchld, ',');
                 $query = 'INSERT INTO '.self::$table.' ('.$fields.') VALUES('.$placeholders.')';
-                $res = DB::getInstance()->execute($query, $input_params);
-                unset($_SESSION['msgs']);
+                $res = self::saveANDdelete($query, $input_params);
                 if ($res) {
                     $_SESSION['msgs'][0] = 'запись успешно добавлена';
                     $_SESSION['msgs'][1] = ' blue';
-                    header("Location: /posts/main");
-                } else $_SESSION['result'] = 'в этом справочнике нет записей';
+                } else {
+                    $_SESSION['msgs'][0] = 'неверный запрос';
+                    $_SESSION['msgs'][1] = ' red';
+                }
                 break;
             
             case 'update':
@@ -39,11 +40,10 @@ class ReferenceModel extends AbstractModel {
                   
                 }
                 $query = 'UPDATE '.self::$table.  rtrim($set, ',').$where;
-                $res = DB::getInstance()->execute($query, $input_params);
+                $res = self::saveANDdelete($query, $input_params);
                 if ($res) {
                     $_SESSION['msgs'][0] = 'запись успешно обновлена';
                     $_SESSION['msgs'][1] = ' blue';
-                    header("Location: /posts/main");
                 } else {
                     $_SESSION['msgs'][0] = 'неверный запрос';
                     $_SESSION['msgs'][1] = ' red';
@@ -52,11 +52,11 @@ class ReferenceModel extends AbstractModel {
             
             case 'delete':
                 $query = 'DELETE FROM '.self::$table.' WHERE id=:id';
-                $res = DB::getInstance()->execute($query, $input_params);
+                $res = self::saveANDdelete($query, $input_params);
                 if ($res) {
                     $_SESSION['msgs'][0] = 'запись успешно удалена';
                     $_SESSION['msgs'][1] = ' blue';
-                    header("Location: /posts/main");
+                    header("Location: /".self::$table."/main");
                 } else {
                     $_SESSION['msgs'][0] = 'неверный запрос';
                     $_SESSION['msgs'][1] = ' red';
@@ -70,7 +70,7 @@ class ReferenceModel extends AbstractModel {
                     $_SESSION['msgs'][0] = 'отредактируйте запись';
                     $_SESSION['msgs'][1] = ' green';
                 } else {
-                    $_SESSION['msgs'][0] = 'неверный запрос';
+                    $_SESSION['msgs'][0] = 'неверный запрос,запись отсутствует';
                     $_SESSION['msgs'][1] = ' red';
                 }
                 return $res;

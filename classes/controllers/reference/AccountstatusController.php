@@ -1,6 +1,6 @@
 <?php
 
-class PostsController implements IController {
+class AccountstatusController implements IController {
     
     private $_fc;
     private $_table;
@@ -19,7 +19,7 @@ class PostsController implements IController {
                 $res = $this->save($model,$item_form);
             }
         }
-        $this->viewMainPosts($item_form);
+        $this->viewMain($item_form);
     }
     
     public function getAction() {
@@ -52,24 +52,22 @@ class PostsController implements IController {
         return ReferenceModel::refFactory($model, $input_params);
     }
     
-    private function viewMainPosts($item_form) {
+    private function viewMain($item_form) {
         $left_bar_items = Config::getReferenceConfig();
         ReferenceModel::setParams($this->_table);
         $table_items = ReferenceModel::refFactory('all');
-        $view = new ViewPosts($left_bar_items, $table_items, $item_form);
+        $view = new ViewAccountstatus($left_bar_items, $table_items, $item_form);
         $view->getBody();
-//        unset($_SESSION['msgs']);
     }
     
     private function checkPost() {
-        if (!empty($_POST['postname'])){
-            return $obj = ['id' =>$_POST['id'], 'postname'=>$_POST['postname']];
+        if (!empty($_POST['namestatus'])){
+            return $obj = ['id' =>$_POST['id'],'namestatus'=>$_POST['namestatus']];
         } else {
             $_SESSION['msgs'][0] = 'Вы оставили поле пустым, заполните его';
             $_SESSION['msgs'][1] = ' red';
             return FALSE;
         }
     }
-    
     
 }

@@ -1,6 +1,6 @@
 <?php
 
-class ViewPosts extends AbstractView {
+class ViewBanks extends AbstractView {
     
     protected function getContent() {
 ?>

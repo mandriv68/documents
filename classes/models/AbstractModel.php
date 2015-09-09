@@ -16,13 +16,12 @@ abstract class AbstractModel {
     }
     
     protected static function getFields() {
-//        $query = 'SHOW COLUMNS FROM '.static::$table;
-//        $res = DB::getInstance()->fetchAll($query,self::getClass());
-//        foreach ($res as $value) {
-//            self::$fields .= $value->Field.',';
-//        }
-//        return rtrim(self::$fields,',');
-        return 'id,postname';
+        $query = 'SHOW COLUMNS FROM '.static::$table;
+        $res = DB::getInstance()->fetchAll($query,self::getClass());
+        foreach ($res as $value) {
+            self::$fields .= $value->Field.',';
+        }
+        return rtrim(self::$fields,',');
     }
     
     protected static function getPlaceholders() {
