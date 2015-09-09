@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Documents</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" >
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/yourstyle.css" >
+    <script src="js/respond.min.js"></script>
+</head>
+ 
+    <body>
+        <div class="container">
+            <!-- navbar -->
+            <div class="row">
+                <div class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">
+                            <img src="images/doc.png" alt="">
+                            ДОКУМЕНТЫ
+                        </a>
+                        <div class="divider-vertical"></div>
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="#">справочники</a></li>
+                                <li><a href="#">документы</a></li>
+                                <li><a href="#">архив</a></li>
+                            </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="border: 1px solid black;">
+                <div id="left-bar" class="col-md-3">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active"><a href="#">Справочники</a></li>
+                        <li><a href="#"><i class="icon-camera-retro"></i>Документы</a></li>
+                        <li><a href="#">Архив</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-12 bottom15">
+                            <form role="form" class="form-horizontal" method="post">
+                                <fieldset>
+                                    <legend>Для работы с документами или архивами введите фирму</legend>
+                                    <span class="col-md-9">    
+                                        <select name="company_name" class="form-control">
+                                            <option value="0">выберите название фирмы</option>
+                                            <option value="1" selected="selected">Company_1</option>
+                                            <option value="2">Company_2</option>
+                                            <option value="3">Company_3</option>
+                                        </select>
+                                    </span>
+                                    <span class="col-md-3">
+                                        <button type="submit" class="btn btn-default">Выбрать</button>
+                                    </span>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 main-item">
+                            <div class="thumbnail main-item-block">
+                                <img src="images/reference.jpg" alt="...">
+                                <div class="caption">
+                                    <a href="#"><h3>справочники</h3></a>
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-money"></i>  валюты</a></li>
+                                        <li><a href="#"><i class="fa fa-bank"></i>  банки</a></li>
+                                        <li><a href="#"><i class="fa fa-group"></i> сотрудники</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 main-item">
+                            <div class="thumbnail main-item-block">
+                                <img src="images/doc.jpg" alt="...">
+                                <div class="caption">
+                                    <a href="#"><h3>документы</h3></a>
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-file-text"></i>  объявки</a></li>
+                                        <li><a href="#"><i class="fa fa-file-text"></i>  отчёты эл-во</a></li>
+                                        <li><a href="#"><i class="fa fa-file-text"></i> договоры</a></li>
+                                        <li><a href="#"><i class="fa fa-file-text"></i> письма</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 main-item">
+                            <div class="thumbnail main-item-block">
+                                <img src="images/archiv.jpg" alt="...">
+                                <div class="caption">
+                                    <a href="#"><h3>архивы</h3></a>
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-archive"></i>  объявки</a></li>
+                                        <li><a href="#"><i class="fa fa-archive"></i>  отчёты эл-во</a></li>
+                                        <li><a href="#"><i class="fa fa-archive"></i> договоры</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-striped table-bordered">
+                        <tr bgcolor="grey">
+                            <th align="center" width="20%">id</th>
+                            <th align="center" width="80%">название должности</th>
+                        </tr>
+                        <tr>
+                            <td align="center">1</td>
+                            <td align="left">директор</td>
+                        </tr>
+                        <tr>
+                            <td align="center">2</td>
+                            <td align="left">зам.директора</td>
+                        </tr>
+                        <tr>
+                            <td align="center">3</td>
+                            <td align="left">главный бухгалтер</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <form role="form" class="form" method="post">
+                        <fieldset>
+                            <legend>добавление::редактирование должности</legend>
+                            <div class="form-group">
+                                <label for="postname">должность</label>
+                                <input type="hidden" name="id" value="1">
+                                <input type="text" name="postname" class="form-control" id="postname" placeholder="Введите название должности">
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-red">запомнить</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+    <!-- JS код -->
+            <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+        </div>
+    </body>
+</html>
