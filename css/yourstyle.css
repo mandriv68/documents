@@ -1,6 +1,9 @@
 .w70 {
     width: 70% !important;
 }
+.w100 {
+    width: 100% !important;
+}
 .left15 { margin-left: 15px;}
 .bottom15 { margin-bottom: 15px;}
 .top15 { margin-top: 15px;}
@@ -204,4 +207,8 @@ legend {
   color: #ED7600;
   background-color: transparent !important;
   border-left: 3px solid #ED7600;
+}
+.p-form {
+    margin-bottom: -2px !important;
+    font-size: 0.8em;
 }

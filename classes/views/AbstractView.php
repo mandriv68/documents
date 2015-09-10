@@ -87,7 +87,29 @@ HTML_ENTITIES;
         '</div>';
     }
     
-    protected function getContent() {}
+    protected function getContent() {
+        ?>
+<div class="row">
+        <? $this->getLeftBar();?>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-12 bottom15">
+        <?= $this->getForm();?>
+            </div>
+            <div class="col-md-12">
+<?      $this->getTable();
+        if ($_SESSION['result']):?>
+            <p><?= $_SESSION['result']?></p>
+<?          unset($_SESSION['result']);
+        endif;?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+        unset($_SESSION['msgs']);
+    }
     
     protected function getCompanyName() {
         $legend = (!$_SESSION['company_name']) ?

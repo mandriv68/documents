@@ -22,6 +22,7 @@ return array(
         'banks'         => ['fa fa-bank'=>'банки'],
         'banksfilial'   => ['fa fa-bank'=>'филиалы банков'],
         'users'         => ['fa fa-user-secret'=>'пользователи'],
+        'ownership'     => ['fa fa-industry'=>'формы собственности'],
     ],
     /* секции */
     'sections' => [

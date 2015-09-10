@@ -104,7 +104,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <table class="table table-striped table-bordered">
                         <tr bgcolor="grey">
                             <th align="center" width="20%">id</th>
@@ -124,17 +124,24 @@
                         </tr>
                     </table>
                 </div>
-                <div class="col-md-6">
-                    <form role="form" class="form" method="post">
+                <div class="col-md-12">
+                    <form role="form" class="form-inline" method="post">
                         <fieldset>
                             <legend>добавление::редактирование должности</legend>
-                            <div class="form-group">
-                                <label for="postname">должность</label>
-                                <input type="hidden" name="id" value="1">
-                                <input type="text" name="postname" class="form-control" id="postname" placeholder="Введите название должности">
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-red">запомнить</button>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <input type="hidden" name="id" value="1">
+                                    <p class="p-form">abbreviature</p>
+                                    <input type="text" name="abbr" class="form-control" id="abbr" placeholder="abbreviature">
+                                </div>
+                                <div class="form-group col-md-7"> 
+                                    <p class="p-form">должность<p>
+                                    <input type="text" name="description" class="form-control" id="description" placeholder="description">
+                                </div>
+                                <div class="col-md-2">
+                                    <p style="visibility: hidden;" class="p-form">bottom</p>
+                                    <button type="submit" class="btn btn-red">запомнить</button>
+                                </div>
                             </div>
                         </fieldset>
                     </form>
