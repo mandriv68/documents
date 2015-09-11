@@ -1,16 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of AbstractRefController
- *
- * @author admin
- */
 abstract class AbstractRefController {
     
     public function mainAction($item_form = NULL) {
