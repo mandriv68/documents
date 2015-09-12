@@ -1,7 +1,6 @@
 <?php
 
 class PostsController extends AbstractRefController implements IController {
-    
         
     protected $_fc;
     protected $model;
@@ -42,6 +41,5 @@ class PostsController extends AbstractRefController implements IController {
             return FALSE;
         }
     }
-    
     
 }

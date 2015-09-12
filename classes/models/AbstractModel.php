@@ -8,8 +8,8 @@ abstract class AbstractModel {
     protected static function getClass() {
         return static::$class = get_called_class();
     }
-    
-        protected static function getFields() {
+        
+    protected static function getFields() {
         $fields = [];
         $query = 'SHOW COLUMNS FROM '.static::$table;
         $res = DB::getInstance()->fetchAll($query,self::getClass());
@@ -22,6 +22,30 @@ abstract class AbstractModel {
         return $fields;
     }
 
+    protected static function insert($params) {
+        $fld = $plchld = '';
+        foreach ($params as $k => $v) {
+            $plchld .= $k.',';
+            $fld .= ltrim($k, ':').',';
+        }
+        return ['fields'=>rtrim($fld, ',') , 'placeholders'=>rtrim($plchld, ',')];
+    }
+    
+    protected static function update($params) {
+        $where = ' WHERE ';
+        $set = ' SET ';
+        $cnt = count($params);
+        foreach ($params as $key => $value) {
+            --$cnt;
+            if(!$cnt)
+                {$where .= ltrim ($key, ':').'='.$key;}
+            else
+                {$set .= ltrim($key, ':').'='.$key.',';}
+
+        }
+//        Dump::vardump($set,$where);die;
+        return ['set'=>rtrim($set, ',') , 'where'=>$where];
+    }
 
     protected static function getAll($query) {
         return DB::getInstance()->fetchAll($query,self::getClass());

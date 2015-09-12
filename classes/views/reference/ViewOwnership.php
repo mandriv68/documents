@@ -7,7 +7,7 @@ class ViewOwnership extends AbstractView {
 ?>   
         <form role="form" class="form-inline" method="post">
             <fieldset>
-                <legend>добавление::редактирование должности</legend>
+                <legend>добавление::редактирование справочник формы собственности</legend>
                 <div class="row">
                     <div class="form-group col-md-3">
                         <input type="hidden" name="id" value="<?= $this->item_form->id;?>">

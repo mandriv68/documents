@@ -7,15 +7,9 @@ class OwnershipModel extends AbstractModel {
     public static function factory($method,$input_params=NULL) {
         switch ($method) {
             case 'insert':
-                $fld = $plchld = '';
                 array_shift($input_params);
-                foreach ($input_params as $k => $v) {
-                    $plchld .= $k.',';
-                    $fld .= ltrim($k, ':').',';
-                }
-                $fields = rtrim($fld, ',');
-                $placeholders = rtrim($plchld, ',');
-                $query = 'INSERT INTO '.self::$table.' ('.$fields.') VALUES('.$placeholders.')';
+                $params = self::insert($input_params);
+                $query = 'INSERT INTO '.self::$table.' ('.$params['fields'].') VALUES('.$params['placeholders'].')';
                 $res = self::saveANDdelete($query, $input_params);
                 if ($res) {
                     $_SESSION['msgs'][0] = 'запись успешно добавлена';
@@ -27,19 +21,9 @@ class OwnershipModel extends AbstractModel {
                 break;
             
             case 'update':
-                $params = array_reverse($input_params);
-                $where = ' WHERE ';
-                $set = ' SET ';
-                $cnt = count($params);
-                foreach ($params as $key => $value) {
-                    --$cnt;
-                    if(!$cnt)
-                        $where .= ltrim ($key, ':').'='.$key;
-                    else
-                        $set .= ltrim($key, ':').'='.$key.',';
-                  
-                }
-                $query = 'UPDATE '.self::$table.  rtrim($set, ',').$where;
+                $input_params = array_reverse($input_params);
+                $params = self::update($input_params);
+                $query = 'UPDATE '.self::$table.$params['set'].$params['where'];
                 $res = self::saveANDdelete($query, $input_params);
                 if ($res) {
                     $_SESSION['msgs'][0] = 'запись успешно обновлена';
@@ -82,6 +66,5 @@ class OwnershipModel extends AbstractModel {
                 return $res;
         }
     }
-    
     
 }

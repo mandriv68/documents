@@ -6,7 +6,7 @@ class ViewPosts extends AbstractView {
 ?>   
         <form role="form" class="form-inline" method="post">
                     <fieldset>
-                        <legend>добавление::редактирование должности</legend>
+                        <legend>добавление::редактирование справочника должности</legend>
                         <div class="col-md-10 form-group">
                             <label for="postname">должность</label>
                             <input type="hidden" name="id" value="<?= $this->item_form->id?>">
