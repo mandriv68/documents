@@ -2,37 +2,37 @@
 
 class PostsController extends AbstractRefController implements IController {
     
+        
     protected $_fc;
-    protected $_table;
-
-
+    protected $model;
+//---------------
     public function __construct() {
         $this->_fc = FrontController::getInstance();
-        $this->_table = strtolower(rtrim(get_class($this), 'Controller'));
+        $this->model =(rtrim(get_class($this), 'Controller')).'Model';
     }
-    
+//---------------   
     public function mainAction($item_form = NULL) {
         parent::mainAction($item_form);
     }
-    
+//---------------    
     public function getAction() {
-        parent::getAction();
+        parent::getAction($this->model);
     }
-    
+//---------------    
     public function deleteAction() {
-        parent::deleteAction();
+        parent::deleteAction($this->model);
     }
-    
-    protected function save($model,$param) {
-        parent::save($model, $param);
+//---------------    
+    protected function save($fabric_method, $param) {
+        parent::save($fabric_method, $param, $this->model);
     }
-    
+//---------------    
     protected function viewMain($item_form) {
-        $params = parent::viewMain();
+        $params = parent::viewMain($this->model);
         $view = new ViewPosts($params['left_bar_items'], $params['table_items'], $item_form);
         $view->getBody();
     }
-    
+//---------------    
     protected function checkPost() {
         if (!empty($_POST['postname'])){
             return $obj = ['id' =>$_POST['id'], 'postname'=>$_POST['postname']];

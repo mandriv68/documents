@@ -4,33 +4,24 @@ abstract class AbstractModel {
     
     protected static $class = '';
     protected static $table;
-    protected static $fields = '';
-    protected static $placeholders = '';
-    
-    public static function setParams($table) {
-        static::$table = $table;
-    }
 
     protected static function getClass() {
         return static::$class = get_called_class();
     }
     
-    protected static function getFields() {
+        protected static function getFields() {
+        $fields = [];
         $query = 'SHOW COLUMNS FROM '.static::$table;
         $res = DB::getInstance()->fetchAll($query,self::getClass());
         foreach ($res as $value) {
-            self::$fields .= $value->Field.',';
+            $fields['fields'] .= $value->Field.',';
+            $fields['placeholders'] .= ':'.$value->Field.',';
         }
-        return rtrim(self::$fields,',');
+        $fields['fields'] = rtrim($fields['fields'], ',');
+        $fields['placeholders'] = rtrim($fields['placeholders'], ',');
+        return $fields;
     }
-    
-    protected static function getPlaceholders() {
-        $arr = explode(',', self::getFields());
-        foreach ($arr as $value) {
-            self::$placeholders .= ':'.$value.','; 
-        }
-        return rtrim(self::$placeholders,',');
-    }
+
 
     protected static function getAll($query) {
         return DB::getInstance()->fetchAll($query,self::getClass());
