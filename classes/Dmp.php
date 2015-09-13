@@ -1,8 +1,8 @@
 <?php
 
-class Dump {
+class Dmp {
 
-    public static function vardump($val1, $val2 = 0, $val3 = 0, $val4 = 0)  {
+    public static function vdmp($val1, $val2 = 0, $val3 = 0, $val4 = 0)  {
         echo '<pre>';
         $arr = [$val1, $val2, $val3, $val4];
         foreach ($arr as $value) {

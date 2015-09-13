@@ -66,7 +66,7 @@ class ViewBanks extends AbstractView {
             <tr onclick="location.href='/banks/get/id/<?= $line->id?>';" class="hover-tr">
                 <td align="center"><?= $count?></td>
                 <td align="left"><?= $line->bic?></td>
-                <td align="left"><?= $line->ownership?></td>
+                <td align="left"><?= $line->ownershipabbr?></td>
                 <td align="left"><?= $line->namebank?></td>
                 <td align="left"><?= $line->adress?></td>
                 <td class="icon-edit">

@@ -14,11 +14,10 @@ abstract class AbstractRefController {
     }
     
     public function getAction($model) {
+        Dmp::prnt($model);
         $fabric_method = 'get';
         $params = $this->_fc->getParams();
         if (array_key_exists('id', $params)) {
-//            ReferenceModel::setParams($this->_table);
-//            $res = ReferenceModel::refFactory($model, $params);
             $res = $model::factory($fabric_method, $params);
         }
         if ($res) {
@@ -32,8 +31,6 @@ abstract class AbstractRefController {
         if (array_key_exists('id', $params)) {
             list($k,$v) = each($params);
             $input_params[':'.$k] = $v;
-//            ReferenceModel::setParams($this->_table);
-//            $res = ReferenceModel::refFactory($model, $input_params);
             $res = $model::factory($fabric_method, $input_params);
         }
     }
@@ -43,16 +40,12 @@ abstract class AbstractRefController {
         foreach ($param as $key => $value) {
             $input_params[':'.$key] = $value;
         }
-//        Dump::vardump($input_params);die;
-//        ReferenceModel::setParams($this->_table);
-//        return ReferenceModel::refFactory($model, $input_params);
         return $model::factory($fabric_method, $input_params);
     }
     
     protected function viewMain($model) {
         $output_param = [];
         $output_param['left_bar_items'] = Config::getReferenceConfig();
-//        ReferenceModel::setParams($this->_table);
         $output_param['table_items'] = $model::factory('all');
         return $output_param;
     }

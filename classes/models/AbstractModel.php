@@ -22,16 +22,27 @@ abstract class AbstractModel {
         return $fields;
     }
 
-    protected static function insert($params) {
-        $fld = $plchld = '';
-        foreach ($params as $k => $v) {
-            $plchld .= $k.',';
-            $fld .= ltrim($k, ':').',';
+    protected static function insert($input_params) {
+        array_shift($input_params);
+        $fields = $placeholders = '';
+        foreach ($input_params as $k => $v) {
+            $placeholders .= $k.',';
+            $fields .= ltrim($k, ':').',';
         }
-        return ['fields'=>rtrim($fld, ',') , 'placeholders'=>rtrim($plchld, ',')];
+        $query = 'INSERT INTO '.static::$table.' ('. rtrim($fields, ','). ') VALUES('. rtrim($placeholders, ','). ')';
+        $res = DB::getInstance()->execute($query, $input_params);
+        if ($res) {
+            $_SESSION['msgs'][0] = 'запись успешно добавлена';
+            $_SESSION['msgs'][1] = ' blue';
+        } else {
+            $_SESSION['msgs'][0] = 'неверный запрос';
+            $_SESSION['msgs'][1] = ' red';
+        }
+        return $res;  //TRUE or FALSE
     }
     
-    protected static function update($params) {
+    protected static function update($input_params) {
+        $params = array_reverse($input_params);
         $where = ' WHERE ';
         $set = ' SET ';
         $cnt = count($params);
@@ -43,8 +54,16 @@ abstract class AbstractModel {
                 {$set .= ltrim($key, ':').'='.$key.',';}
 
         }
-//        Dump::vardump($set,$where);die;
-        return ['set'=>rtrim($set, ',') , 'where'=>$where];
+        $query = 'UPDATE '.static::$table.  rtrim($set,',').$where;
+        $res = DB::getInstance()->execute($query, $params);
+        if ($res) {
+            $_SESSION['msgs'][0] = 'запись успешно обновлена';
+            $_SESSION['msgs'][1] = ' blue';
+        } else {
+            $_SESSION['msgs'][0] = 'неверный запрос';
+            $_SESSION['msgs'][1] = ' red';
+        }
+        return $res;  //TRUE or FALSE
     }
 
     protected static function getAll($query) {
@@ -57,5 +76,38 @@ abstract class AbstractModel {
     
     protected static function saveANDdelete($query,$input_params) {
         return DB::getInstance()->execute($query,$input_params);
+    }
+    
+    protected static function delete ($input_params) {
+        $query = 'DELETE FROM '.static::$table.' WHERE id=:id';
+        $res = DB::getInstance()->execute($query,$input_params);
+        if ($res) {
+            $_SESSION['msgs'][0] = 'запись успешно удалена';
+            $_SESSION['msgs'][1] = ' blue';
+            header("Location: /".static::$table."/main");
+        } else {
+            $_SESSION['msgs'][0] = 'неверный запрос';
+            $_SESSION['msgs'][1] = ' red';
+        }
+        return $res;  //TRUE or FALSE
+    }
+    
+    protected static function get($input_params) {
+        $query = 'SELECT '. self::getFields()['fields'].' FROM '.static::$table.' WHERE id='.$input_params['id'].' LIMIT 1';
+        $res = DB::getInstance()->fetchObj($query,self::getClass());
+        if ($res) {
+            $_SESSION['msgs'][0] = 'отредактируйте запись';
+            $_SESSION['msgs'][1] = ' green';
+        } else {
+            $_SESSION['msgs'][0] = 'неверный запрос,запись отсутствует';
+            $_SESSION['msgs'][1] = ' red';
+        }
+        return $res;  //OBJECT or FALSE
+    }
+    
+    protected static function all($query) {
+        $res = DB::getInstance()->fetchAll($query,self::getClass());
+        if (!$res) {$_SESSION['result'] = 'в справочнике пусто, выросла капуста';}
+        return $res;  //ARRAY or FALSE
     }
 }

@@ -4,31 +4,31 @@
 class BanksController extends AbstractRefController implements IController {
             
     protected $_fc;
-    protected $_table;
+    protected $model;
 
 
     public function __construct() {
         $this->_fc = FrontController::getInstance();
-        $this->_table = strtolower(rtrim(get_class($this), 'Controller'));
+        $this->model =(rtrim(get_class($this), 'Controller')).'Model';
     }
     
     public function mainAction($item_form = NULL) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $item_form = $this->checkPost();
             if ($item_form) {
-                $model = (!empty($item_form['id'])) ? 'update' : 'insert';
-                $res = $this->save($model,$item_form);
+                $fabric_method = (!empty($item_form['id'])) ? 'update' : 'insert';
+                $res = $this->save($fabric_method,$item_form);
             }
         } else $item_form = (object)[];
         $this->viewMain($item_form);
     }
     
     public function getAction() {
-        parent::getAction();
+        parent::getAction($this->model);
     }
     
     public function deleteAction() {
-        parent::deleteAction();
+        parent::deleteAction($this->model);
     }
     
     protected function save($model,$param) {
@@ -40,8 +40,7 @@ class BanksController extends AbstractRefController implements IController {
         $left_bar_items = Config::getReferenceConfig();
 //  получаем список форм собственности
         $selected_ownership = $item_form->ownership;
-        ReferenceModel::setParams('ownership');
-        $ownership = ReferenceModel::refFactory('all');
+        $ownership = OwnershipModel::factory('all');
         $arr_own = [];
         $i = 0;
         foreach ($ownership as $obj) {
@@ -52,7 +51,7 @@ class BanksController extends AbstractRefController implements IController {
         }
         $item_form->ownership = $arr_own;
         $table_items = BanksModel::factory('all');
-        Dump::vardump($table_items);die;
+//        Dmp::vdmp($table_items);die;
         $view = new ViewBanks($left_bar_items, $table_items, $item_form);
         $view->getBody();
     }
