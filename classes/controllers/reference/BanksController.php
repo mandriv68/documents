@@ -19,7 +19,7 @@ class BanksController extends AbstractRefController implements IController {
                 $fabric_method = (!empty($item_form['id'])) ? 'update' : 'insert';
                 $res = $this->save($fabric_method,$item_form);
             }
-        } else $item_form = (object)[];
+        }
         $this->viewMain($item_form);
     }
     
@@ -31,11 +31,12 @@ class BanksController extends AbstractRefController implements IController {
         parent::deleteAction($this->model);
     }
     
-    protected function save($model,$param) {
-        parent::save($model, $param);
+    protected function save($fabric_method,$param) {
+        parent::save($fabric_method, $param, $this->model);
     }
     
     protected function viewMain($item_form) {
+        Dmp::vdmp($item_form);
         $params = [];
         $left_bar_items = Config::getReferenceConfig();
 //  получаем список форм собственности
@@ -49,6 +50,7 @@ class BanksController extends AbstractRefController implements IController {
             $arr_own[$i]['selected'] = ($obj->id == $selected_ownership) ? ' selected'  : '';
             $i++;
         }
+        if (!$item_form) $item_form = (object)[];
         $item_form->ownership = $arr_own;
         $table_items = BanksModel::factory('all');
 //        Dmp::vdmp($table_items);die;

@@ -15,7 +15,7 @@ class ViewBanks extends AbstractView {
                     </div>
                     <div class="form-group col-md-3"> 
                         <p class="p-form">форма собственности<p>
-                        <select name="company_name" class="form-control w100">
+                        <select name="ownership" class="form-control w100">
 <?php   foreach ($this->item_form->ownership as $ownership): ?>
                             <option value="<?= $ownership['id']?>"<?= $ownership['selected']?>><?= $ownership['abbr']?></option>
 <?      endforeach;?>
