@@ -18,6 +18,8 @@ class BanksController extends AbstractRefController implements IController {
             if ($item_form) {
                 $fabric_method = (!empty($item_form['id'])) ? 'update' : 'insert';
                 $res = $this->save($fabric_method,$item_form);
+                if ($res) 
+                    {$item_form = (object)[];}
             }
         }
         $this->viewMain($item_form);
@@ -36,8 +38,6 @@ class BanksController extends AbstractRefController implements IController {
     }
     
     protected function viewMain($item_form) {
-        Dmp::vdmp($item_form);
-        $params = [];
         $left_bar_items = Config::getReferenceConfig();
 //  получаем список форм собственности
         $selected_ownership = $item_form->ownership;
@@ -50,10 +50,9 @@ class BanksController extends AbstractRefController implements IController {
             $arr_own[$i]['selected'] = ($obj->id == $selected_ownership) ? ' selected'  : '';
             $i++;
         }
-        if (!$item_form) $item_form = (object)[];
+        if (!is_object($item_form)) {$item_form = (object)[];}
         $item_form->ownership = $arr_own;
         $table_items = BanksModel::factory('all');
-//        Dmp::vdmp($table_items);die;
         $view = new ViewBanks($left_bar_items, $table_items, $item_form);
         $view->getBody();
     }

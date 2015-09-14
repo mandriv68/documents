@@ -14,7 +14,6 @@ abstract class AbstractRefController {
     }
     
     public function getAction($model) {
-        Dmp::prnt($model);
         $fabric_method = 'get';
         $params = $this->_fc->getParams();
         if (array_key_exists('id', $params)) {

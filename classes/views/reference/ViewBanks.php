@@ -19,7 +19,7 @@ class ViewBanks extends AbstractView {
 <?php   foreach ($this->item_form->ownership as $ownership): ?>
                             <option value="<?= $ownership['id']?>"<?= $ownership['selected']?>><?= $ownership['abbr']?></option>
 <?      endforeach;?>
-                            <option value="add"><a href="#">добавить</a></option>
+                            <option onclick="location.href='/ownership/main'">добавить</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6"> 
