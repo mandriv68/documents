@@ -31,6 +31,7 @@ class ViewBanks extends AbstractView {
                     <div class="form-group col-md-9"> 
                         <p class="p-form">адрес банка<p>
                         <input type="text" name="adress" class="form-control w100" value="<?= $this->item_form->adress;?>">
+                        <input type="hidden" name="ownership_id" class="form-control w100" value="<?= $this->item_form->ownership['id'];?>">
                     </div>
                     <div class="col-md-2">
                         <p style="visibility: hidden;" class="p-form">bottom</p>

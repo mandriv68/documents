@@ -66,18 +66,6 @@ abstract class AbstractModel {
         return $res;  //TRUE or FALSE
     }
 
-    protected static function getAll($query) {
-        return DB::getInstance()->fetchAll($query,self::getClass());
-    }
-    
-    protected static function getOne($query) {
-        return DB::getInstance()->fetchObj($query,  self::getClass());
-    }
-    
-    protected static function saveANDdelete($query,$input_params) {
-        return DB::getInstance()->execute($query,$input_params);
-    }
-    
     protected static function delete ($input_params) {
         $query = 'DELETE FROM '.static::$table.' WHERE id=:id';
         $res = DB::getInstance()->execute($query,$input_params);
@@ -110,4 +98,17 @@ abstract class AbstractModel {
         if (!$res) {$_SESSION['result'] = 'в справочнике пусто, выросла капуста';}
         return $res;  //ARRAY or FALSE
     }
+    
+    protected static function getAll($query) {
+        return DB::getInstance()->fetchAll($query,self::getClass());
+    }
+    
+    protected static function getOne($query) {
+        return DB::getInstance()->fetchObj($query,  self::getClass());
+    }
+    
+    protected static function saveANDdelete($query,$input_params) {
+        return DB::getInstance()->execute($query,$input_params);
+    }
+    
 }

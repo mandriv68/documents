@@ -1,7 +1,6 @@
 <?php
 
-
-class BanksController extends AbstractRefController implements IController {
+class CompanyController extends AbstractRefController implements IController{
             
     protected $_fc;
     protected $model;
@@ -43,14 +42,23 @@ class BanksController extends AbstractRefController implements IController {
         }
         if (!is_object($item_form)) {$item_form = (object)[];}
         $item_form->ownership = $arr_own;
-        $table_items = BanksModel::factory('all');
-        $view = new ViewBanks($left_bar_items, $table_items, $item_form);
+        $table_items = CompanyModel::factory('all');
+        $view = new ViewCompany($left_bar_items, $table_items, $item_form);
         $view->getBody();
     }
     
     protected function checkPost() {
-        if (!empty($_POST['bic']) && !empty($_POST['ownership']) && !empty($_POST['namebank']) && !empty($_POST['adress'])){
-            return $obj = ['id' =>$_POST['id'],'bic'=>$_POST['bic'],'ownership'=>$_POST['ownership'],'namebank'=>$_POST['namebank'],'adress'=>$_POST['adress'],'ownership_id'=>$_POST['ownership_id']];
+        if (!empty($_POST['edrpou']) && !empty($_POST['namecompany']) && !empty($_POST['regoffice']) && !empty($_POST['postaladress'])){
+            return $obj = ['id' =>$_POST['id'],
+                           'edrpou'=>$_POST['edrpou'],
+                           'ownership'=>$_POST['ownership'],
+                           'namecompany'=>$_POST['namecompany'],
+                           'regoffice'=>$_POST['regoffice'],
+                           'postaladress'=>$_POST['postaladress'],
+                           'vat'=>$_POST['vat'],
+                           'itn'=>$_POST['itn'],
+                           'sert_of_vat'=>$_POST['sert_of_vat'],
+                           'ownership_id'=>$_POST['ownership_id']];
         } else {
             $_SESSION['msgs'][0] = 'Вы оставили поле пустым, заполните его';
             $_SESSION['msgs'][1] = ' red';

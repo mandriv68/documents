@@ -1,33 +1,38 @@
 <?php
 
-class ViewCompany extends AbstractView {
-        
-        protected function getForm() {
+class ViewBankaccounts extends AbstractView {
+    
+     protected function getForm() {
 ?>   
         <form role="form" class="form-inline" method="post">
             <fieldset>
-                <legend>добавление::редактирование справочник Контрагенты</legend>
+                <legend>добавление::редактирование справочник Рассчётные счета</legend>
                 <div class="row">
-                    <!--едрпоу-->
+                    <!--номер счёта-->
                     <div class="form-group col-md-3">
                         <input type="hidden" name="id" value="<?= $this->item_form->id;?>">
-                        <p class="p-form">код ЕДРПОУ</p>
-                        <input type="text" name="edrpou" class="form-control w100" value="<?= $this->item_form->edrpou;?>">
+                        <p class="p-form">№ счёта</p>
+                        <input type="text" name="numberaccount" class="form-control w100" value="<?= $this->item_form->numberaccount;?>">
                     </div>
-                    <!--форма собственности-->
+                    <!--назначение счёта-->
                     <div class="form-group col-md-3"> 
-                        <p class="p-form">форма собственности<p>
-                        <select name="ownership" class="form-control w100">
-<?php   foreach ($this->item_form->ownership as $ownership): ?>
-                            <option value="<?= $ownership['id']?>"<?= $ownership['selected']?>><?= $ownership['abbr']?></option>
+                        <p class="p-form">назначение счёта<p>
+                        <select name="status" class="form-control w100">
+<?php   foreach ($this->item_form->status as $status): ?>
+                            <option value="<?= $status['id']?>"<?= $status['selected']?>><?= $status['namestatus']?></option>
 <?      endforeach;?>
-                            <option onclick="location.href='/ownership/main'">добавить</option>
+                            <option onclick="location.href='/accountstatus/main'">добавить</option>
                         </select>
                     </div>
-                    <!--название фирмы-->
-                    <div class="form-group col-md-6"> 
-                        <p class="p-form">название фирмы<p>
-                        <input type="text" name="namecompany" class="form-control w100" value="<?= $this->item_form->namebank;?>">
+                    <!--валюта-->
+                    <div class="form-group col-md-3"> 
+                        <p class="p-form">валюта<p>
+                        <select name="currency" class="form-control w100">
+<?php   foreach ($this->item_form->currency as $currency): ?>
+                            <option value="<?= $currency['id']?>"<?= $currency['selected']?>><?= $currency['code']?></option>
+<?      endforeach;?>
+                            <option onclick="location.href='/currency/main'">добавить</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">

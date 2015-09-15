@@ -1,9 +1,8 @@
 <?php
 
-class BanksModel extends AbstractModel {
+class CompanyModel extends AbstractModel {
     
-    protected static $table = 'banks';
-
+    protected static $table = 'company';
 
     public static function factory($method,$input_params=NULL) {
         switch ($method) {
@@ -21,7 +20,14 @@ class BanksModel extends AbstractModel {
                 return self::get($input_params);
 
             default:
-                $query = 'SELECT banks.id, banks.bic, ownership.abbr AS ownershipabbr, banks.namebank, banks.adress FROM banks, ownership WHERE ownership.id=banks.ownership';
+                $query = 'SELECT company.id,'
+                               .'company.edrpou,'
+                               .'ownership.abbr AS ownershipabbr,'
+                               .'company.namecompany,'
+                               .'company.regoffice,'
+                               .'company.itn '
+                        .'FROM company, ownership '
+                        .'WHERE ownership.id=company.ownership';
                 return self::all($query);
         }
     }
