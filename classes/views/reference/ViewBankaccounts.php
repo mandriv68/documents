@@ -29,47 +29,43 @@ class ViewBankaccounts extends AbstractView {
                         <p class="p-form">валюта<p>
                         <select name="currency" class="form-control w100">
 <?php   foreach ($this->item_form->currency as $currency): ?>
-                            <option value="<?= $currency['id']?>"<?= $currency['selected']?>><?= $currency['code']?></option>
+                            <option value="<?= $currency['id']?>"<?= $currency['selected']?>><?= $currency['code'].'::'.$currency['shortname']?></option>
 <?      endforeach;?>
                             <option onclick="location.href='/currency/main'">добавить</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
-                    <!--юридический адрес-->
-                    <div class="form-group col-md-10"> 
-                        <p class="p-form">
-                            юридический адрес<span style="font-size:0.8em;">(индекс::область::город::улица::дом::офис)</span>
-                        </p>
-                        <input type="text" name="regoffice" class="form-control w100" value="<?= $this->item_form->regoffice;?>">
-                    </div>
-                    <!--фактический адрес-->
-                    <div class="form-group col-md-10"> 
-                        <p class="p-form">
-                            фактический адрес<span style="font-size:0.8em;">(индекс::область::город::улица::дом::офис)</span>
-                        </p>
-                        <input type="text" name="postaladress" class="form-control w100" value="<?= $this->item_form->postaladress;?>">
-                    </div>
-                </div>
-                <div class="row">
-                    <!--плательщик НДС-->
-                    <div class="form-group col-md-2">
-                        <p class="p-form" title="является плательщиком НДС?">пл-к НДС</p>
-                        <select name="vat" class="form-control w100" title="является плательщиком НДС?">
-                            <option value="0">нет</option>
-                            <option value="1">да</option>
+                    <!--банк-->
+                    <div class="form-group col-md-4"> 
+                        <p class="p-form">банк где открыт счёт</p>
+                        <select name="bank" class="form-control w100">
+<?php   foreach ($this->item_form->bank as $bank): ?>
+                            <option value="<?= $bank['bic']?>"<?= $bank['selected']?>>
+                                <?= $bank['bic'].'::'.$bank['ownershipabbr'].' '.$bank['namebank']?>
+                            </option>
+<?      endforeach;?>
+                            <option onclick="location.href='/banks/main'">добавить</option>
                         </select>
                     </div>
-                    <!--ИНН-->
-                    <div class="form-group col-md-3"> 
-                        <p class="p-form">ИНН<p>
-                        <input type="text" name="itn" class="form-control w100" value="<?= $this->item_form->itn;?>">
-                    </div>
-                    <!--№ свидетельства-->
+                    <!--фирма-->
                     <div class="form-group col-md-4"> 
-                        <p class="p-form">№ свидетельства<p>
-                        <input type="text" name="sert_of_vat" class="form-control w100" value="<?= $this->item_form->sert_of_vat;?>">
-                        <input type="hidden" name="ownership_id" value="<?= $this->item_form->ownership_id;?>">
+                        <p class="p-form">фирма-счёт</p>
+                        <select name="company" class="form-control w100">
+<?php   foreach ($this->item_form->company as $company): ?>
+                            <option value="<?= $company['edrpou']?>"<?= $company['selected']?>>
+                                <?= $company['edrpou'].'::'.$company['ownershipabbr'].' '.$company['namecompany']?>
+                            </option>
+<?      endforeach;?>
+                            <option onclick="location.href='/company/main'">добавить</option>
+                        </select>
+                    </div>
+                    <!-- foreignKey справочника -->
+                    <div class="col-md-1">
+                        <input type="hidden" name="company_edrpou" value="<?= $this->item_form->company_edrpou;?>">
+                        <input type="hidden" name="accountstatus_id" value="<?= $this->item_form->accountstatus_id;?>">
+                        <input type="hidden" name="currency_id" value="<?= $this->item_form->currency_id;?>">
+                        <input type="hidden" name="banks_bic" value="<?= $this->item_form->banks_bic;?>">
                     </div>
                     <div class="col-md-2">
                         <p style="visibility: hidden;" class="p-form">bottom</p>
@@ -93,28 +89,30 @@ class ViewBankaccounts extends AbstractView {
         <table class="table table-striped table-bordered">
             <tr bgcolor="grey">
                 <th align="center" width="6%">№ п/с</th>
-                <th align="center" width="10%">ЕДРПОУ</th>
-                <th align="center" width="30%">название фирмы</th>
-                <th align="center" width="30%">юр.адрес</th>
-                <th align="center" width="10%">инн</th>
+                <th align="center" width="20%">счёт</th>
+                <th align="center" width="10%">статус</th>
+                <th align="center" width="10%">валюта</th>
+                <th align="center" width="20%">банк</th>
+                <th align="center" width="20%">фирма</th>
                 <th align="center" width="7%">ред...</th>
                 <th align="center" width="7%">уд...</th>
             </tr>
 <?      $count = 1;
         foreach ($this->items_table as $line):?>
-            <tr onclick="location.href='/company/get/id/<?= $line->id;?>';" class="hover-tr">
+            <tr onclick="location.href='/bankaccounts/get/id/<?= $line->id;?>';" class="hover-tr">
                 <td align="center"><?= $count;?></td>
-                <td align="left"><?= $line->edrpou;?></td>
-                <td align="left"><?= $line->ownershipabbr.' '.$line->namecompany;?></td>
-                <td align="left"><?= $line->regoffice?></td>
-                <td align="left"><?= $line->itn?></td>
+                <td align="left"><?= $line->numberaccount;?></td>
+                <td align="left"><?= $line->status_n;?></td>
+                <td align="left"><?= $line->currency_n?></td>
+                <td align="left"><?= $line->bank_n?></td>
+                <td align="left"><?= $line->company_n?></td>
                 <td class="icon-edit">
-                    <a href="/company/get/id/<?= $line->id?>" title="редактировать">
+                    <a href="/bankaccounts/get/id/<?= $line->id?>" title="редактировать">
                         <i class="fa fa-pencil-square-o"></i>
                     </a>
                 </td>
                 <td class="icon-del">
-                    <a href="/company/delete/id/<?= $line->id?>" title="удалить">
+                    <a href="/bankaccounts/delete/id/<?= $line->id?>" title="удалить">
                         <i class="fa fa-eraser"></i>
                     </a>
 
