@@ -30,18 +30,12 @@ class CompanyController extends AbstractRefController implements IController{
     protected function viewMain($item_form) {
         $left_bar_items = Config::getReferenceConfig();
 //  получаем список форм собственности
-        $selected_ownership = $item_form->ownership;
-        $ownership = OwnershipModel::factory('all');
-        $arr_own = [];
-        $i = 0;
-        foreach ($ownership as $obj) {
-            $arr_own[$i]['id'] = $obj->id;
-            $arr_own[$i]['abbr'] = $obj->abbr;
-            $arr_own[$i]['selected'] = ($obj->id == $selected_ownership) ? ' selected'  : '';
-            $i++;
-        }
+        $arr_ownership = $this->getItemArray($item_form->ownership, 'OwnershipModel');
         if (!is_object($item_form)) {$item_form = (object)[];}
-        $item_form->ownership = $arr_own;
+        $item_form->ownership = $arr_ownership;
+        $checked = ($item_form->flag) ? ' checked' : '';
+        $arr_checkbox = ['flag'=>$item_form->flag, 'checked'=>$checked];
+        $item_form->flag = $arr_checkbox;
         $table_items = CompanyModel::factory('all');
         $view = new ViewCompany($left_bar_items, $table_items, $item_form);
         $view->getBody();
@@ -53,6 +47,7 @@ class CompanyController extends AbstractRefController implements IController{
                            'edrpou'=>$_POST['edrpou'],
                            'ownership'=>$_POST['ownership'],
                            'namecompany'=>$_POST['namecompany'],
+                           'flag'=>$_POST['flag'],
                            'regoffice'=>$_POST['regoffice'],
                            'postaladress'=>$_POST['postaladress'],
                            'vat'=>$_POST['vat'],

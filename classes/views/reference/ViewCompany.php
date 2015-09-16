@@ -9,17 +9,17 @@ class ViewCompany extends AbstractView {
                 <legend>добавление::редактирование справочник Контрагенты</legend>
                 <div class="row">
                     <!--едрпоу-->
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                         <input type="hidden" name="id" value="<?= $this->item_form->id;?>">
                         <p class="p-form">код ЕДРПОУ</p>
                         <input type="text" name="edrpou" class="form-control w100" value="<?= $this->item_form->edrpou;?>">
                     </div>
                     <!--форма собственности-->
-                    <div class="form-group col-md-3"> 
-                        <p class="p-form">форма собственности<p>
+                    <div class="form-group col-md-2"> 
+                        <p class="p-form" title="форма собственности">ф-ма собств-ти<p>
                         <select name="ownership" class="form-control w100">
-<?php   foreach ($this->item_form->ownership as $ownership): ?>
-                            <option value="<?= $ownership['id']?>"<?= $ownership['selected']?>><?= $ownership['abbr']?></option>
+<?php   foreach ($this->item_form->ownership as $ownership):?>
+                            <option  title="<?= $ownership['description']?>" value="<?= $ownership['id']?>"<?= $ownership['selected']?>><?= $ownership['abbr']?></option>
 <?      endforeach;?>
                             <option onclick="location.href='/ownership/main'">добавить</option>
                         </select>
@@ -27,7 +27,11 @@ class ViewCompany extends AbstractView {
                     <!--название фирмы-->
                     <div class="form-group col-md-6"> 
                         <p class="p-form">название фирмы<p>
-                        <input type="text" name="namecompany" class="form-control w100" value="<?= $this->item_form->namebank;?>">
+                        <input type="text" name="namecompany" class="form-control w100" value='<?= $this->item_form->namecompany;?>'>
+                    </div>
+                    <div class="checkbox col-md-2"> 
+                        <p class="p-form red">моя фирма<p>
+                            <input type="checkbox" name="flag" value="<?= $this->item_form->flag['flag'];?>"<?= $this->item_form->flag['checked'];?>>
                     </div>
                 </div>
                 <div class="row">
@@ -102,7 +106,7 @@ class ViewCompany extends AbstractView {
                 <td align="left"><?= $line->edrpou;?></td>
                 <td align="left"><?= $line->ownershipabbr.' '.$line->namecompany;?></td>
                 <td align="left"><?= $line->regoffice?></td>
-                <td align="left"><?= $line->itn?></td>
+                <td align="left"><?= ((!$line->itn)?'без НДС':$line->itn);?></td>
                 <td class="icon-edit">
                     <a href="/company/get/id/<?= $line->id?>" title="редактировать">
                         <i class="fa fa-pencil-square-o"></i>

@@ -63,19 +63,19 @@ class BankaccountsController extends AbstractRefController implements IControlle
         }
     }
     
-    protected function getItemArray($selected,$model) {
-        $result = $model::factory('all');
-        $array = [];
-        $i = 0;
-        foreach ($result as $obj) {
-            $arr_obj = (array)$obj;
-            foreach ($arr_obj as $k=>$v){
-                $array[$i][$k] = $v;
-            }
-            $array[$i]['selected'] = ($arr_obj['id'] == $selected) ? ' selected'  : '';
-            $i++;
-        }
-        return $array;
-    }
+//    protected function getItemArray($selected,$model) {
+//        $result = $model::factory('all');
+//        $array = [];
+//        $i = 0;
+//        foreach ($result as $obj) {
+//            $arr_obj = (array)$obj;
+//            foreach ($arr_obj as $k=>$v){
+//                $array[$i][$k] = $v;
+//            }
+//            $array[$i]['selected'] = ($arr_obj['id'] == $selected) ? ' selected'  : '';
+//            $i++;
+//        }
+//        return $array;
+//    }
     
 }
