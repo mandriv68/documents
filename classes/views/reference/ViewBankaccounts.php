@@ -50,7 +50,7 @@ class ViewBankaccounts extends AbstractView {
                     </div>
                     <!--фирма-->
                     <div class="form-group col-md-4"> 
-                        <p class="p-form">фирма-счёт</p>
+                        <p class="p-form">фирма-владелец счёта</p>
                         <select name="company" class="form-control w100">
 <?php   foreach ($this->item_form->company as $company): ?>
                             <option value="<?= $company['edrpou']?>"<?= $company['selected']?>>

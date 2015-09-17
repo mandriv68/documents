@@ -1,7 +1,7 @@
 <?php
 
-class BankaccountsController extends AbstractRefController implements IController {
-                
+class EmploeesController extends AbstractRefController implements IController {
+                    
     protected $_fc;
     protected $model;
 
@@ -28,34 +28,30 @@ class BankaccountsController extends AbstractRefController implements IControlle
     }
     
     protected function viewMain($item_form) {
+        $model = $this->model;
         $left_bar_items = Config::getReferenceConfig();
-//  получаем список форм собственности
-        $arr_status = $this->getItemArray($item_form->status, 'AccountstatusModel');
-        $arr_currency = $this->getItemArray($item_form->currency, 'CurrencyModel');
-        $arr_banks = $this->getItemArray($item_form->bank, 'BanksModel');
+//  готовим массивы для select-ов
+        $arr_posts = $this->getItemArray($item_form->post, 'PostsModel');
         $arr_company = $this->getItemArray($item_form->company, 'CompanyModel');
         if (!is_object($item_form)) {$item_form = (object)[];}
-        $item_form->status = $arr_status;
-        $item_form->currency = $arr_currency;
-        $item_form->bank = $arr_banks;
-        $item_form->company = $arr_company;
-        $table_items = BankaccountsModel::factory('all');
-        $view = new ViewBankaccounts($left_bar_items, $table_items, $item_form);
+        $item_form->post = $arr_posts;  // select name->post
+        $item_form->company = $arr_company;  // select name->company
+        $table_items = $model::factory('all');
+        $view = new ViewEmploees($left_bar_items, $table_items, $item_form);
         $view->getBody();
     }
     
     protected function checkPost() {
-        if (!empty($_POST['numberaccount']) && !empty($_POST['status']) && !empty($_POST['currency']) && !empty($_POST['bank']) && !empty($_POST['company'])){
+        if (!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['itnl']) && !empty($_POST['company']) && !empty($_POST['post'])){
             return $obj = [ 'id' =>$_POST['id'],
-                            'numberaccount'=>$_POST['numberaccount'],
-                            'status'=>$_POST['status'],
-                            'currency'=>$_POST['currency'],
-                            'bank'=>$_POST['bank'],
+                            'firstname'=>$_POST['firstname'],
+                            'lastname'=>$_POST['lastname'],
+                            'pasport'=>$_POST['pasport'],
+                            'itnl'=>$_POST['itnl'],
                             'company'=>$_POST['company'],
+                            'post'=>$_POST['post'],
                             'company_edrpou'=>$_POST['company_edrpou'],
-                            'accountstatus_id'=>$_POST['accountstatus_id'],
-                            'currency_id'=>$_POST['currency_id'],
-                            'banks_bic'=>$_POST['banks_bic']];
+                            'posts_id'=>$_POST['posts_id']];
         } else {
             $_SESSION['msgs'][0] = 'Вы оставили поле пустым, заполните его';
             $_SESSION['msgs'][1] = ' red';
