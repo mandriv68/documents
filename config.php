@@ -16,6 +16,7 @@ return array(
         'emploees'      => ['fa fa-group'=>'сотрудники'],
         'posts'         => ['fa fa-male'=>'должности'],
         'company'       => ['fa fa-database'=>'контрагенты'],
+        'personalaccounts'=> ['fa fa-tachometer'=>'лицевые счета'],
         'bankaccounts'  => ['fa fa-credit-card'=>'рассчётные счета'],
         'accountstatus' => ['fa fa-credit-card'=>'назначение счета'],
         'currency'      => ['fa fa-money'=>'валюты'],
