@@ -47,10 +47,11 @@ HTML_ENTITIES;
         <div class="row">
             <div class="navbar navbar-inverse">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/index/main">
-                        <img src="/../../images/doc.png" alt="">
-                        ДОКУМЕНТЫ
-                    </a>
+                    <div class="brand-company">{$_SESSION['company_name']}</div>
+                        <a class="navbar-brand" href="/index/main">
+                            <i class="fa fa-folder-open-o fa-lg orange"></i> ДОКУМЕНТЫ
+                <!--        <img src="/../../images/doc.png" alt="">   -->
+                        </a>
                     <div class="divider-vertical"></div>
 HTML_ENTITIES1;
         if ($flag)  {          
@@ -114,19 +115,26 @@ HTML_ENTITIES;
     protected function getCompanyName() {
         $legend = (!$_SESSION['company_name']) ?
                 'для работы с документами и архивами выберите фирму':
-                'Сейчас Вы работаете с фирмой'.$_SESSION['company_name'];
-        echo <<<HTML_ENTITIES
+                'Сейчас Вы работаете с фирмой '.$_SESSION['company_name'];
+?>
         <div class="row">
             <div class="col-md-12 bottom15">
                 <form role="form" class="form-horizontal" method="post">
                     <fieldset>
-                        <legend>{$legend}</legend>
+                        <legend><?= $legend?></legend>
                         <span class="col-md-9">    
-                            <select name="company_name" class="form-control">
+                            <select name="company" class="form-control">
                                 <option value="0">выберите название фирмы</option>
-                                <option value="1" selected="selected">Company_1</option>
-                                <option value="2">Company_2</option>
-                                <option value="3">Company_3</option>
+<?php       foreach ($this->item_form as $company):
+                if ($company->flag):
+?>                    
+                                <option value="<?= $company->edrpou?>"<?= $company->selected?>>
+                                    <?= $company->ownershipabbr.' '.$company->namecompany.'::'.$company->edrpou?>
+                                </option>
+               
+<?php           endif;
+            endforeach;
+?>
                             </select>
                         </span>
                         <span class="col-md-3">
@@ -136,7 +144,7 @@ HTML_ENTITIES;
                 </form>
             </div>
         </div>
-HTML_ENTITIES;
+<?php
     }
 
     public function getBody() {

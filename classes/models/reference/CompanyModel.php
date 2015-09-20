@@ -24,10 +24,12 @@ class CompanyModel extends AbstractModel {
                                .'company.edrpou,'
                                .'ownership.abbr AS ownershipabbr,'
                                .'company.namecompany,'
+                               .'company.flag,'
                                .'company.regoffice,'
                                .'company.itn '
                         .'FROM company, ownership '
-                        .'WHERE ownership.id=company.ownership';
+                        .'WHERE ownership.id=company.ownership '
+                        .'ORDER BY company.id';
                 return self::all($query);
         }
     }

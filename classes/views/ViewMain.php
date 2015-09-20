@@ -16,7 +16,8 @@ class ViewMain extends AbstractView{
                         <a href="/reference/main"><h3>справочники</h3></a>
                         <ul>
                             <?php
-                            $ref = Config::getReferenceConfig();                            $this->getItemsBox($ref);
+                            $ref = Config::getReferenceConfig();
+                            $this->getItemsBox($ref);
                             ?>
                         </ul>
                     </div>

@@ -4,6 +4,15 @@
 .w100 {
     width: 100% !important;
 }
+.brand-company {
+    display: block;
+    position: absolute;
+    left: 72px;
+    top: 33px;
+    color: #ed7600 !important;
+    font-size: 0.8em;
+    font-weight: 700;
+}
 .left15 { margin-left: 15px;}
 .bottom15 { margin-bottom: 15px;}
 .top15 { margin-top: 15px;}
@@ -139,6 +148,7 @@ legend {
 .red { color: red !important;}
 .blue { color: blue !important;}
 .green { color: green !important;}
+.orange { color: #ed7600;}
 .items-top-menu > li > a {
     padding-top: 12px !important;
     font-size: 1.15em;

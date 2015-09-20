@@ -31,7 +31,7 @@ class ViewCompany extends AbstractView {
                     </div>
                     <div class="checkbox col-md-2"> 
                         <p class="p-form red">моя фирма<p>
-                            <input type="checkbox" name="flag" value="<?= $this->item_form->flag['flag'];?>"<?= $this->item_form->flag['checked'];?>>
+                            <input type="checkbox" name="flag" value="1"<?= $this->item_form->flag['checked'];?>>
                     </div>
                 </div>
                 <div class="row">
