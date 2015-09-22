@@ -33,16 +33,18 @@ return array(
     ],
     /* докумены */
     'documents' => [
-        'pob' => ['fa fa-file-text'=>'объявки'],
-        'report' => ['fa fa-file-text'=>'отчёты по эл-ву'],
-        'contracts' => ['fa fa-file-text'=>'договоры'],
-        'letters' => ['fa fa-file-text'=>'письма'],
+        'docpob' => ['fa fa-file-text'=>'объявки'],
+        'docreport' => ['fa fa-file-text'=>'отчёты по эл-ву'],
+        'docscore' => ['fa fa-file-text'=>'счета'],
+        'doccontracts' => ['fa fa-file-text'=>'договоры'],
+        'docletters' => ['fa fa-file-text'=>'письма'],
     ],
     
     /* архивы */
     'archives' => [
         'arcpob' => ['fa fa-archive'=>'объявки'],
         'arcreport' => ['fa fa-archive'=>'отчёты по эл-ву'],
+        'arcscore' => ['fa fa-archive'=>'счета'],
         'arccontracts' => ['fa fa-archive'=>'договоры'],
         'arcletters' => ['fa fa-archive'=>'письма'],
     ],

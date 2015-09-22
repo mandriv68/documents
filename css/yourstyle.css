@@ -19,6 +19,10 @@
 .right15 { margin-right: 15px;}
 .visible { visibility: visible;}
 .hidden { visibility: hidden;}
+.divider {
+    height: 1px;
+    background-color: #ddd;
+}
 a:focus {
     outline: none !important;
 }

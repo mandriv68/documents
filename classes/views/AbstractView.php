@@ -61,6 +61,9 @@ HTML_ENTITIES1;
                         <li><a href="/reference/main">справочники</a></li>
                         <li><a href="/doc/main">документы</a></li>
                         <li><a href="/archives/main">архив</a></li>
+                        <li>
+                            <a href="/exit/main" class="orange"><i class="fa fa-sign-out"></i>&nbsp выход</a>
+                        </li>
                     </ul>
 HTML_ENTITIES2;
         }

@@ -7,7 +7,7 @@ class ViewReference extends AbstractView {
     <? $this->getLeftBar();?>
     <div class="col-md-9">
         <div class="row">
-          <?  Dump::vardump($this->cntrl)?>  
+          <?  Dmp::vdmp($this->cntrl)?>  
         </div>
     </div>
 </div>
