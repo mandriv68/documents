@@ -9,7 +9,7 @@ class ViewDoc extends AbstractView {
     <div class="col-md-9">
         <div class="row">
             <div class="col-md-4 orange">
-                <h3 style="margin: 0 auto;"><?= ($_SESSION['company_name']) ? $_SESSION['company_name'] : 'выберите фирму'?></h3>
+                <h4 style="margin: 0 auto;"><?= ($_SESSION['company_name']) ? $_SESSION['company_name'] : 'выберите фирму'?></h4>
             </div>
             <div class="col-md-8">
                 <? $this->getCompanyName()?>
@@ -38,7 +38,7 @@ class ViewDoc extends AbstractView {
             <div class="col-md-12 bottom15">
                 <form role="form" class="form-horizontal" method="post">
                         <span class="col-md-9">    
-                            <select name="company" class="form-control">
+                            <select name="company" class="form-control input-sm">
                                 <option value="0">выберите или измените фирму</option>
 <?php       foreach ($this->item_form as $company):
                 if ($company->flag):
@@ -53,7 +53,7 @@ class ViewDoc extends AbstractView {
                             </select>
                         </span>
                         <span class="col-md-3">
-                            <button type="submit" class="btn btn-red">Выбрать</button>
+                            <button type="submit" class="btn btn-red btn-sm">Выбрать</button>
                         </span>
                 </form>
             </div>

@@ -81,7 +81,7 @@ HTML_ENTITIES3;
 HTML_ENTITIES;
         foreach ($this->itemsLeftBar as $controller => $item) {
             list($i_class, $menu_item) = each($item);
-            echo '<li>'
+            echo '<li class="">'
                     .'<a href="/'.$controller.'/main">'
                         .'<i class="'.$i_class.'"></i>&nbsp&nbsp'.$menu_item.
                      '</a>'.

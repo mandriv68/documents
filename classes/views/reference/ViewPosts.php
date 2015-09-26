@@ -57,6 +57,24 @@ class ViewPosts extends AbstractView {
         endforeach;?>   
         </table>
 <?php   }
+
+    protected function getLeftBar() {
+?>
+        <div id="left-bar" class="col-md-3">
+            <ul class="nav">
+<?
+        foreach ($this->itemsLeftBar as $controller => $item) :
+            list($i_class, $menu_item) = each($item);
+?>
+            <li>
+                <a href="/<?= $controller;?>/main">
+                        <i class="<?= $i_class;?>"></i>&nbsp&nbsp<?= $menu_item;?>
+                </a>
+            </li>
+<?      endforeach;?>
+        </ul>
+        '</div>';
+<?php }
     
     public function getBody() {
         $this->getHeader();
