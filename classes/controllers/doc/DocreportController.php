@@ -7,7 +7,7 @@ class DocreportController implements IController {
         $this->_fc = FrontController::getInstance();
     }
     
-    public function MainAction() {
+    public function mainAction() {
         $items_leftbar = Config::getDocConfig();
         $company = CompanyModel::factory('all');
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -18,8 +18,12 @@ class DocreportController implements IController {
                 } else $obj->selected = '';
             }
         }
-        $view = new ViewDocreport($items_leftbar,NULL,$company);
+        $view = new ViewDocreport($items_leftbar,[],$company);
         $view->getBody();
+    }
+    
+    protected function checkPost() {
+        
     }
     
 }

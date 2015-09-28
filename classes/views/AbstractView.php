@@ -75,21 +75,26 @@ HTML_ENTITIES3;
     }
     
     protected function getLeftBar() {
-        echo <<<HTML_ENTITIES
+        $cntrl_name = $_SERVER['REQUEST_URI'];
+?>
         <div id="left-bar" class="col-md-3">
-            <ul class="nav nav-pills nav-stacked">
-HTML_ENTITIES;
-        foreach ($this->itemsLeftBar as $controller => $item) {
+            <ul class="nav">
+<?
+        foreach ($this->itemsLeftBar as $controller => $item) :
+            // делаем активным текущий пункт меню
+            $active = (FALSE !== strpos($cntrl_name, '/'.$controller.'/')) ? 'active' : '';
             list($i_class, $menu_item) = each($item);
-            echo '<li class="">'
-                    .'<a href="/'.$controller.'/main">'
-                        .'<i class="'.$i_class.'"></i>&nbsp&nbsp'.$menu_item.
-                     '</a>'.
-                 '</li>';
-            }
-        echo '</ul>'.
-        '</div>';
-    }
+?>
+                <li class="<?= $active;?>">
+                    <a href="/<?= $controller;?>/main">
+                            <i class="<?= $i_class;?>"></i>&nbsp&nbsp<?= $menu_item;?>
+                    </a>
+                </li>
+<?      endforeach;?>
+            </ul>
+        </div>
+<?php }
+    
     
     protected function getContent() {
         ?>

@@ -41,13 +41,6 @@ th {
     padding: 4px !important;
     line-height: 1.2;
 }
-#left-bar {
-    border: 1px solid #f2f2f2;
-    border-radius: 5px;
-    background-color: #f1f1f1;
-    box-shadow: 2px 2px 4px #bbb;
-    padding: 15px !important;
-}
 .divider-vertical {
     width: 3px;
     margin: 0px 2px;
@@ -197,6 +190,13 @@ legend {
   border: 1px solid #bbb !important;
 }
 /******LeftBar******/
+#left-bar {
+    border: 1px solid #c3c3c3;
+    border-radius: 5px;
+    background-color: #cdcdcd;
+    box-shadow: 2px 2px 4px #bbb;
+    padding: 15px !important;
+}
 #left-bar .nav > li {
     position: relative;
     display: block;
@@ -210,8 +210,7 @@ legend {
     -webkit-transition: all 0.5s ease;
 }
 #left-bar .nav > li > a:hover,
-#left-bar .nav > li > a:focus,
-#left-bar .nav > li > a:active
+#left-bar .nav > li > a:focus
 {
     border-left: 3px solid #ED7600;
     color: #ED7600 !important;
@@ -220,9 +219,9 @@ legend {
 #left-bar .nav > li.active > a,
 #left-bar .nav > li.active > a:hover,
 #left-bar .nav > li.active > a:focus {
-  color: #ED7600;
+  color: #EA5900 !important;
   background-color: transparent !important;
-  border-left: 3px solid #ED7600;
+  border-left: 3px solid #EA5900;
 }
 /*******************/
 .nav-pills > li > a {
