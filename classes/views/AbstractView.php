@@ -23,7 +23,15 @@ abstract class AbstractView {
     <link rel="stylesheet" href="/../../css/bootstrap.min.css" >
     <link rel="stylesheet" href="/../../css/font-awesome.min.css" >
     <link rel="stylesheet" href="/../../css/yourstyle.css" >
+    <link rel="stylesheet" href="/../../css/datepicker.css" />
     <script src="/../../js/respond.min.js"></script>
+    <script src="/../../js/bootstrap-datepicker.js"></script>
+    <!-- Инициализация виджета "Bootstrap datetimepicker" -->
+    <script>
+        $(function () {
+          $('#dtp').datepicker();
+        });
+    </script>
 </head>
  
     <body>
@@ -73,28 +81,26 @@ HTML_ENTITIES2;
         </div>
 HTML_ENTITIES3;
     }
-    
+
     protected function getLeftBar() {
-        $cntrl_name = $_SERVER['REQUEST_URI'];
+        $cntrl = $_SERVER['REQUEST_URI'];
 ?>
         <div id="left-bar" class="col-md-3">
             <ul class="nav">
 <?
         foreach ($this->itemsLeftBar as $controller => $item) :
-            // делаем активным текущий пункт меню
-            $active = (FALSE !== strpos($cntrl_name, '/'.$controller.'/')) ? 'active' : '';
             list($i_class, $menu_item) = each($item);
+            $active = (false !== strpos($cntrl, '/'.$controller.'/')) ? 'active' : '';
 ?>
                 <li class="<?= $active;?>">
-                    <a href="/<?= $controller;?>/main">
-                            <i class="<?= $i_class;?>"></i>&nbsp&nbsp<?= $menu_item;?>
-                    </a>
-                </li>
+                <a href="/<?= $controller;?>/main">
+                        <i class="<?= $i_class;?>"></i>&nbsp&nbsp<?= $menu_item;?>
+                </a>
+            </li>
 <?      endforeach;?>
             </ul>
         </div>
 <?php }
-    
     
     protected function getContent() {
         ?>

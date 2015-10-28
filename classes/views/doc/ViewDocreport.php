@@ -11,14 +11,29 @@ class ViewDocreport extends AbstractView {
 <?php
         if (!$_SESSION['company']) {
             $this->getCompanyName();
+?>
+        </div>
+<?php
         }
         else {
 ?>
-            <div class="col-md-12 orange"><h4><?= $_SESSION['company_name'];?> :: отчёты по электричеству</h4></div>
-<?      }?>
+            <div class="col-md-8 orange">
+                <h4><?= $_SESSION['company_name'];?> :: отчёты по электричеству</h4>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <div class="btn-btn btn-red">
+                    <a href="#insertDocreport" data-toggle="modal">
+                        <i class="fa fa-plus"></i>&nbsp новый документ
+                    </a>
+                </div>
+                <?= $this->getDocument();?>
+            </div>
         </div>
         <div class="row" style="padding: 0 15px;">
             <div class="col-md-12 divider"></div>
+        </div>
+        <div class="row top15">
             <div class="col-md-12">
 <?      $this->getTable();
         if ($_SESSION['result']):?>
@@ -27,6 +42,8 @@ class ViewDocreport extends AbstractView {
         endif;?>
             </div>
         </div>
+
+<?      }?>
     </div>
 <?php
     }
@@ -34,45 +51,45 @@ class ViewDocreport extends AbstractView {
     protected function getCompanyName() {
 ?>
             <div class="col-md-8 bottom15">
-                <form  name="company" role="form" class="form-horizontal" method="post">
-                        <span class="col-md-9">
-                            <input type="hidden" name="form" value="company">
-                            <select name="company" class="form-control input-sm">
-                                <option class="orange" value="0">выберите фирму для продолжения работы</option>
+                <form role="form" class="form-horizontal" method="post">
+                    <input type="hidden" name="form" value="company">
+                    <span class="col-md-9">    
+                        <select name="company" class="form-control input-sm">
+                            <option class="orange" value="0">выберите фирму для продолжения работы</option>
 <?php       foreach ($this->item_form as $company):
-                if ($company->flag):
+            if ($company->flag):
 ?>                    
-                                <option value="<?= $company->edrpou?>">
-                                    <?= $company->ownershipabbr.' '.$company->namecompany.'::'.$company->edrpou?>
-                                </option>
-               
+                            <option value="<?= $company->edrpou?>">
+                                <?= $company->ownershipabbr.' '.$company->namecompany.'::'.$company->edrpou?>
+                            </option>
+
 <?php           endif;    
-            endforeach;
+        endforeach;
 ?>
-                            </select>
-                        </span>
-                        <span class="col-md-3">
-                            <button type="submit" class="btn btn-red btn-sm">Выбрать</button>
-                        </span>
+                        </select>
+                    </span>
+                    <span class="col-md-3">
+                        <button type="submit" class="btn btn-red btn-sm">Выбрать</button>
+                    </span>
                 </form>
             </div>
 <?php
     }
+    
     protected function getTable() {
 ?>
         <table class="table table-striped table-bordered">
             <tr bgcolor="grey">
                 <th align="center" width="6%">№ п/с</th>
                 <th align="center" width="15%">дата</th>
-                <th align="center" width="15%">лиц.счёт</th>
-                <th align="center" width="20%">нач.показ.</th>
-                <th align="center" width="20%">посл.показ.</th>
-                <th align="center" width="10%">расход</th>
+                <th align="center" width="15%">№ л/счёта</th>
+                <th align="center" width="20%">пред.показания</th>
+                <th align="center" width="20%">посл.показания</th>
+                <th align="center" width="10%">потребление</th>
                 <th align="center" width="7%">ред...</th>
                 <th align="center" width="7%">уд...</th>
             </tr>
-<?      $count = 1;
-      Dmp::vdmp($this->items_table);
+<?php   $count = 1;
         foreach ($this->items_table as $line):?>
             <tr onclick="location.href='/docreport/get/id/<?= $line->id;?>';" class="hover-tr">
                 <td align="center"><?= $count;?></td>
@@ -97,7 +114,72 @@ class ViewDocreport extends AbstractView {
         endforeach;?>   
         </table>
 <?php   }
+
+   protected function getDocument() {
+?>
+<!-- Modal -->
+<div class="modal fade" id="insertDocreport" tabindex="-1" role="dialog" aria-labelledby="insertDocreportLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h5 class="modal-title">Новый документ</h5>
+            </div>
+            <div class="modal-body">
+                <?= $this->getForm();?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary">Сохранить изменения</button>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+    }
     
+    protected function getForm() {
+?>   
+        <form name="document"role="form" class="form-inline" method="post">
+            <fieldset>
+                <div class="row">
+                    <!--дата-->
+                    <div class="form-group col-md-4">
+                        <input type="hidden" name="form" value="document">
+                        <p class="p-form">дата</p>
+                        <div class="input-group date">
+                            <input type="text" id="dtp" class="form-control">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+<!--                        <div class="input-group date" id="datedoc">
+                            <input type="text" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>-->
+                    </div>
+                    <!--предыдущие показания-->
+                    <div class="form-group col-md-4"> 
+                        <p class="p-form">предыдущие показания<p>
+                        <input type="text" name="meter_reading_before" class="form-control w100" value="">
+                    </div>
+                    <!--последние показания-->
+                    <div class="form-group col-md-4"> 
+                        <p class="p-form">последние показания<p>
+                        <input type="text" name="meter_reading_after" class="form-control w100" value="">
+                    </div>
+<!--                    <div class="col-md-2">
+                        <p style="visibility: hidden;" class="p-form">bottom</p>
+                        <button type="submit" class="btn btn-red">запомнить</button>
+                    </div>-->
+                </div>
+            </fieldset>
+        </form>
+<?php
+    }
+        
     public function getBody() {
         $this->getHeader();
         $this->getNavbar(TRUE);

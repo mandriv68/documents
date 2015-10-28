@@ -109,8 +109,20 @@ legend {
 }
 .btn-red {
     background: linear-gradient(to bottom, #ED7600 0%,#D66B00 35%,#D66B00 65%,#ED7600 100%);
-    border-color: #e00000 !important;
+    border-color: #ED7600 !important;
     color: #fff !important;
+}
+.btn-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+.btn-btn > a {
+    color: #fff !important;
+}
+.btn-btn > a:hover {
+    text-decoration: none;
+    text-shadow: 0 0 3px #bc0900;
 }
 .main-item {}
 .main-item-block {}
@@ -191,8 +203,8 @@ legend {
 }
 /******LeftBar******/
 #left-bar {
-    border: 1px solid #c3c3c3;
-    border-radius: 5px;
+    border: 1px solid #c6c6c6;
+    border-radius: 3px;
     background-color: #cdcdcd;
     box-shadow: 2px 2px 4px #bbb;
     padding: 15px !important;
@@ -213,6 +225,7 @@ legend {
 #left-bar .nav > li > a:focus
 {
     border-left: 3px solid #ED7600;
+    background-color: transparent !important;
     color: #ED7600 !important;
     padding-left: 25px;
 }

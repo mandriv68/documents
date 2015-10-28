@@ -7,23 +7,29 @@ class DocreportController implements IController {
         $this->_fc = FrontController::getInstance();
     }
     
-    public function mainAction() {
+    public function MainAction() {
         $items_leftbar = Config::getDocConfig();
-        $company = CompanyModel::factory('all');
+        $item_form = CompanyModel::factory('all');
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            foreach ($company as $obj) {
-                if ($obj->edrpou == $_POST['company']) {
-                    $_SESSION['company_name'] = $obj->ownershipabbr.' '.$obj->namecompany;
-                    $_SESSION['company'] = $_POST['company'];
-                } else $obj->selected = '';
-            }
+            $item_form = $this->checkPost();
         }
-        $view = new ViewDocreport($items_leftbar,[],$company);
+        $items_table = DocreportModel::factory('all');
+        $view = new ViewDocreport($items_leftbar,$items_table,$item_form);
         $view->getBody();
     }
     
-    protected function checkPost() {
-        
+    private function checkPost() {
+        switch ($_POST['form']) {
+            case 'company':
+                $company = CompanyModel::factory('find_the_edrpou', (int)$_POST['company']);
+                $_SESSION['company_name'] = $company->ownershipabbr.' '.$company->namecompany;
+                $_SESSION['company'] = $_POST['company'];
+                return (object)[];
+
+            case 'doc':
+                return $item_form = DocreportModel::factory('get');
+        }
     }
     
 }
+

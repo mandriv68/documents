@@ -18,6 +18,9 @@ class CompanyModel extends AbstractModel {
                 
             case 'get':
                 return self::get($input_params);
+                
+            case 'find_the_edrpou':
+                return self::findTheEdrpou($input_params);
 
             default:
                 $query = 'SELECT company.id,'
@@ -33,4 +36,11 @@ class CompanyModel extends AbstractModel {
                 return self::all($query);
         }
     }
+    
+    protected static function findTheEdrpou($input_params) {
+        $query = 'SELECT ownership.abbr AS ownershipabbr, company.namecompany FROM ownership, company WHERE ownership.id = company.ownership AND company.edrpou = '.$input_params.' LIMIT 1';
+        $res = DB::getInstance()->fetchObj($query,self::getClass());
+        return $res;  //OBJECT or FALSE
+    }
+    
 }

@@ -57,7 +57,7 @@ class ViewPosts extends AbstractView {
         endforeach;?>   
         </table>
 <?php   }
-
+    
     public function getBody() {
         $this->getHeader();
         $this->getNavbar(TRUE);

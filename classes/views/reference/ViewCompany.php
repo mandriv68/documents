@@ -2,7 +2,7 @@
 
 class ViewCompany extends AbstractView {
         
-        protected function getForm() {
+    protected function getForm() {
 ?>   
         <form role="form" class="form-inline" method="post">
             <fieldset>
